@@ -90,7 +90,17 @@ class NodeAttrMask():
             return self.do_trans(data)
 
 class GCANodeAttrMask():
-    def __init__(self, centrality_measure: str, prob: float = 0.1, threshold: float = 0.7, dense: bool = False, return_mask: bool = False):
+    '''Proabilistic node attribute perturbation on the given graph or batched graphs. Perturbations are adaptive i.e. critical nodes have lower probability of being perturbed.
+    Class objects callable via method :meth:`views_fn`.
+    
+    Args:
+        centrality_measure (str): Method for computing node centrality. Set `degree` for degree centrality,
+        `pr` for PageRank centrality and `evc` for eigen-vector centrality
+        prob (float): Probability factor used for calculating attribute-masking probability
+        threshold (float, optional): Upper-bound probability for masking any attribute, defaults to 0.7
+        dense (bool, optional): Indicates prescence of dense continuous features. Defaults to `false`
+    '''
+    def __init__(self, centrality_measure: str, prob: float, threshold: float = 0.7, dense: bool = False, return_mask: bool = False):
         self.centrality_measure = centrality_measure
         self.dense = dense
         self.return_mask = return_mask
@@ -114,7 +124,7 @@ class GCANodeAttrMask():
             node_c = node_evc
         else:
             # Don't allow masking if centrality measure is not specified
-            # GCA official implementation uses a full-one mask, but we mandate the user to remove NodePerturbation from the view_fn
+            # GCA official implementation uses a full-one mask, but we mandate the user to remove GCANodePerturbation from the view_fn
             raise Exception("Centrality measure option '{}' is not available!".format(self.centrality_measure))
         return node_c
 
@@ -135,7 +145,7 @@ class GCANodeAttrMask():
     
     
     def views_fn(self, data):
-        r"""Method to be called when :class:`NodeAttrMask` object is called.
+        r"""Method to be called when :class:`GCANodeAttrMask` object is called.
         
         Args:
             data (:class:`torch_geometric.data.Data`): The input graph or batched graphs.

@@ -78,7 +78,7 @@ def feature_drop_weights_dense(x, node_c):
     return s
 
 
-def drop_edge_weighted(edge_index, edge_weights, p: float, threshold: float = 1.):
+def drop_edge_weighted(edge_index, edge_weights, p: float, threshold: float):
     edge_weights = edge_weights / edge_weights.mean() * p
     edge_weights = edge_weights.where(edge_weights < threshold, torch.ones_like(edge_weights) * threshold)
     sel_mask = torch.bernoulli(1. - edge_weights).to(torch.bool)

@@ -56,30 +56,39 @@ class EdgePerturbation():
             return self.do_trans(data)
 
 class GCAEdgePerturbation():
-    def __init__(self, drop_scheme : str, prob : float, threshold : float = 0.7):
-        self.drop_scheme = drop_scheme
+    '''Proabilistic edge perturbation on the given graph or batched graphs. Perturbations are adaptive i.e. critical edges have lower probability of being removed.
+    Class objects callable via method :meth:`views_fn`.
+    
+    Args:
+        centrality_measure (str): Method for computing edge centrality. Set `degree` for degree centrality,
+        `pr` for PageRank centrality and `evc` for eigen-vector centrality
+        prob (float): Probability factor used for calculating edge-drop probability
+        threshold (float): Upper-bound probability for dropping any edge, defaults to 0.7
+    '''
+    def __init__(self, centrality_measure : str, prob : float, threshold : float = 0.7):
+        self.centrality_measure = centrality_measure
         self.prob = prob
         self.threshold = threshold
     def __call__(self, data):
         return self.views_fn(data)
     def do_trans(self, data):
-        if self.drop_scheme not in ['degree', 'pr', 'evc']:
-            raise ValueError("Invalid drop scheme {}".format(self.drop_scheme))
+        if self.centrality_measure not in ['degree', 'pr', 'evc']:
+            raise ValueError("Invalid drop scheme {}".format(self.centrality_measure))
         drop_weights = self._get_edge_weights(data)
         new_edge_index = drop_edge_weighted(data.edge_index, drop_weights, p=self.prob, threshold=self.threshold)
         return Data(x=data.x, edge_index=new_edge_index)
         
     def _get_edge_weights(self, data):
         device = data.x.device
-        if self.drop_scheme == 'degree':
+        if self.centrality_measure == 'degree':
             drop_weights = degree_drop_weights(data.edge_index).to(device)
-        elif self.drop_scheme == 'pr':
+        elif self.centrality_measure == 'pr':
             drop_weights = pr_drop_weights(data.edge_index, aggr='sink', k=200).to(device)
-        elif self.drop_scheme == 'evc':
+        elif self.centrality_measure == 'evc':
             drop_weights = evc_drop_weights(data).to(device)
         return drop_weights
     def views_fn(self, data):
-        r"""Method to be called when :class:`EdgePerturbation` object is called.
+        r"""Method to be called when :class:`GCAEdgePerturbation` object is called.
         
         Args:
             data (:class:`torch_geometric.data.Data`): The input graph or batched graphs.
