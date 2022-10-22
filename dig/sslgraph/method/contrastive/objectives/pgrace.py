@@ -35,8 +35,8 @@ def batched_semi_loss(z1: torch.Tensor, z2: torch.Tensor, tau: float, batch_size
 
 
 def pGRACE_loss(zs_g, zs_n, batch=None, sigma=False, tau=0.1, mean = True, **kwargs):
-    num_hidden = kwargs['num_hidden'] if 'num_hidden' in kwargs else 128
-    num_proj_hidden = kwargs['num_hidden'] if 'num_hidden' in kwargs else 128
+    num_hidden = kwargs['num_hidden'] if 'num_hidden' in kwargs else 256
+    num_proj_hidden = kwargs['num_hidden'] if 'num_hidden' in kwargs else 64
     fc1 = torch.nn.Linear(num_hidden, num_proj_hidden, device=zs_n[0].device)
     fc2 = torch.nn.Linear(num_proj_hidden, num_hidden, device=zs_n[0].device)
     assert len(zs_n) == 2

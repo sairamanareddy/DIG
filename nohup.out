@@ -1,0 +1,21 @@
+[I 2022-09-23 18:50:42.923 ServerApp] jupyterlab | extension was successfully linked.
+[I 2022-09-23 18:50:43.189 ServerApp] nbclassic | extension was successfully linked.
+[I 2022-09-23 18:50:43.236 ServerApp] nbclassic | extension was successfully loaded.
+[I 2022-09-23 18:50:43.238 LabApp] JupyterLab extension loaded from /home/grads/s/sairamana/miniconda3/envs/dig/lib/python3.8/site-packages/jupyterlab
+[I 2022-09-23 18:50:43.238 LabApp] JupyterLab application directory is /home/grads/s/sairamana/miniconda3/envs/dig/share/jupyter/lab
+[I 2022-09-23 18:50:43.241 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2022-09-23 18:50:43.242 ServerApp] Serving notebooks from local directory: /home/grads/s/sairamana/DIG
+[I 2022-09-23 18:50:43.242 ServerApp] Jupyter Server 1.18.1 is running at:
+[I 2022-09-23 18:50:43.242 ServerApp] http://localhost:8888/lab?token=82b7ef2c9d86ecc292b6164edea5fe0dc9e554f9bf48a293
+[I 2022-09-23 18:50:43.242 ServerApp]  or http://127.0.0.1:8888/lab?token=82b7ef2c9d86ecc292b6164edea5fe0dc9e554f9bf48a293
+[I 2022-09-23 18:50:43.242 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2022-09-23 18:50:43.246 ServerApp] 
+    
+    To access the server, open this file in a browser:
+        file:///home/grads/s/sairamana/.local/share/jupyter/runtime/jpserver-1976405-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/lab?token=82b7ef2c9d86ecc292b6164edea5fe0dc9e554f9bf48a293
+     or http://127.0.0.1:8888/lab?token=82b7ef2c9d86ecc292b6164edea5fe0dc9e554f9bf48a293
+[C 2022-09-23 18:51:36.364 ServerApp] received signal 15, stopping
+[I 2022-09-23 18:51:36.368 ServerApp] Shutting down 2 extensions
+[I 2022-09-23 18:51:36.370 ServerApp] Shutting down 0 terminals
